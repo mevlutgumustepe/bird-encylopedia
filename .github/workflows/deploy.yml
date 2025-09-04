@@ -5,11 +5,13 @@ on:
     branches: ["main"]
   workflow_dispatch:
 
+# Actions'ın Pages'a yazabilmesi için gerekli izinler
 permissions:
   contents: read
   pages: write
   id-token: write
 
+# Aynı anda tek yayın görevi çalışsın
 concurrency:
   group: "pages"
   cancel-in-progress: true
@@ -18,14 +20,32 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: npm ci
-      - run: npm run build
-      - run: cp dist/index.html dist/404.html # SPA fallback
-      - uses: actions/upload-pages-artifact@v3
+
+      # package-lock.json varsa 'npm ci', yoksa 'npm install' kullan
+      - name: Install deps
+        run: |
+          if [ -f package-lock.json ]; then
+            npm ci
+          else
+            npm install
+          fi
+
+      - name: Build
+        run: npm run build
+
+      # React Router / SPA için GH Pages 404 fallback
+      - name: SPA 404 fallback
+        run: cp dist/index.html dist/404.html
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
           path: dist
 
@@ -36,5 +56,6 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - id: deployment
+      - name: Deploy to GitHub Pages
+        id: deployment
         uses: actions/deploy-pages@v4
