@@ -240,13 +240,13 @@ export default function WorldMapPage() {
           {(forceDropdown || mode === "dropdown") && (
             <div className="w-[min(92%,560px)] mx-auto bg-white rounded-2xl shadow-inner p-5 md:p-6">
               <h2 className="text-lg md:text-xl font-bold mb-4">
-                Ülke Seç ve Detaylara Git
+                Choose a country
               </h2>
 
               <div className="flex flex-col md:flex-row gap-3 items-stretch md:items-end">
                 <label className="flex-1">
                   <span className="block text-sm font-medium text-gray-700 mb-1">
-                    Ülke
+                    Country
                   </span>
                   <select
                     className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -273,12 +273,6 @@ export default function WorldMapPage() {
                   Seç
                 </button>
               </div>
-
-              <p className="mt-3 text-sm text-gray-500">
-                Liste, yalnızca veri tabanında (birdsData) kuş kaydı bulunan
-                ülkeleri içerir. Harita üzerinden veri olmayan ülkelere
-                tıklarsan detay sayfasında “veri yok” mesajını görürsün.
-              </p>
             </div>
           )}
         </div>
