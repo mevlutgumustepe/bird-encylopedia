@@ -270,7 +270,7 @@ export default function WorldMapPage() {
                   className="md:w-36 h-10 md:h-[42px] rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-700"
                   aria-label="Seçilen ülkeye git"
                 >
-                  Seç
+                  Choose
                 </button>
               </div>
             </div>
